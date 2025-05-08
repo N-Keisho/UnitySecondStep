@@ -895,7 +895,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   bulletPrefab: {fileID: 9211709951872314428, guid: 21b4f34b05328524cb1fa0c5a70933ba, type: 3}
-  playerHealth: 3
+  playerHealth: 10
 --- !u!61 &1503244696
 BoxCollider2D:
   m_ObjectHideFlags: 0
