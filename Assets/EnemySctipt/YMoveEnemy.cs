@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Step3 ---
 public class YMoveEnemy : EnemyBase
 {
     protected override void Move()

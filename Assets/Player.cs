@@ -4,25 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // Step1
     [SerializeField] private float speed = 5f;    
     [SerializeField] private GameObject bulletPrefab;
 
     [SerializeField] private int playerHealth = 3; // Player's health
-
-    public static Player Instance { get; private set; }
-    public int PlayerHealth {get { return playerHealth; } }
-    
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     void Start()
     {
@@ -65,6 +51,23 @@ public class Player : MonoBehaviour
         }
         rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
         Destroy(bullet, 2f);
+    }
+
+
+    // Step4 ---
+    public static Player Instance { get; private set; }
+    public int PlayerHealth {get { return playerHealth; } }
+    
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

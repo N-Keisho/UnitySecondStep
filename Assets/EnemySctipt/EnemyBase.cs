@@ -6,15 +6,18 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public abstract class EnemyBase : MonoBehaviour
 {
-    protected static int enemyCount = 0;
-    protected static int destroyedEnemyCount = 0;
-    public static int RemainingEnemy { get { return enemyCount - destroyedEnemyCount; } }
-
+    // Step2
     [SerializeField] protected float speed = 5f;
     [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected float fireRate = 1f; // Time in seconds between shots
     private float nextFireTime = 0f;
 
+    // Step4 ---
+    protected static int enemyCount = 0;
+    protected static int destroyedEnemyCount = 0;
+    public static int RemainingEnemy { get { return enemyCount - destroyedEnemyCount; } }
+
+    // Step2 ---
     protected virtual void Start()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
@@ -25,6 +28,7 @@ public abstract class EnemyBase : MonoBehaviour
         }
         rb.gravityScale = 0; // Disable gravity for the enemy
 
+        // Step4 ---
         enemyCount++;
     }
 
@@ -40,6 +44,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected abstract void Move();
 
+    // Step1と同じ
     protected virtual void Shot()
     {
         GameObject bullet = Instantiate(bulletPrefab, transform.position + new Vector3(0, -1f, 0), Quaternion.identity);
@@ -61,7 +66,7 @@ public abstract class EnemyBase : MonoBehaviour
         }
         else if (other.CompareTag("Bullet"))
         {
-            
+
             OnHitBullet(other);
         }
     }
@@ -76,7 +81,9 @@ public abstract class EnemyBase : MonoBehaviour
         Destroy(bullet.gameObject);
         destroyedEnemyCount++;
         Debug.Log("Enemy hit by bullet! Remaining Enemy: " + (enemyCount - destroyedEnemyCount));
-        SoundManager.Instance.PlayExplosionSound();
         Destroy(gameObject);
+
+        // Step4
+        SoundManager.Instance.PlayExplosionSound();
     }
 }
